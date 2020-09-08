@@ -1,0 +1,93 @@
+{% extends 'foodAdmin/welcome.html' %}
+
+{% block admin_welcome %}
+    {% load static %}
+    <form action="{% url 'save_city' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+      <table align="center" border="2">
+       <tr><th colspan="4">Add City</th></tr>
+        <tr><th><input type="text" name="city" id="city"  placeholder="City Name" value="{{ city }}">
+             <label>{% if name %}{{ name  }}{% endif %}</label></th>
+
+        <th><input type="file" name="photo"  value="{{ photo }}" id="photo">
+             <label>{% if photo %}{{ photo.name }}{% else %}Choose Image{% endif %}</label>
+        </th>
+          <th>Select State :
+                    <select  name="state">
+                        {% for x in state %}
+                            {% if state_name == x %}
+                                {% if state_name %}<option value="{{ city_state }}">{{ state_name }}</option>{% endif %}
+                                {% else %}
+                                <option value="{{ x.id }}">{{ x.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select></th>
+        <th><button type="submit" class="btn btn-dark">Save</button></th></tr>
+        <input type="hidden" name="id" value="{{ id }}">
+                <input type="hidden" name="city_state" value="{{ city_state }}">
+
+        </form>
+
+    {% if error %}
+        <tr><th style="background: red;color: yellow" colspan="3">{{ error }}</th></tr>
+    {% endif %}
+    </table>
+
+    {% if ctdata %}
+        <table align="center" border="2">
+        <tr><th style="background: #1abc9c;color: white;text-align: center"> All City Details</th></tr>
+        <tr><th>City Id</th>
+            <th>City Name</th>
+            <th>City Photo</th>
+            <th>State Name</th>
+            <th>City Update</th>
+            <th>City Delete</th>
+        </tr>
+        {% for x in ctdata %}
+            <tr>
+            <th>{{ x.id }}</th>
+            <th>{{ x.name }}</th>
+            <th><img src="{{ x.photo.url }}" width="90" height="90"></th>
+            <th>{{ x.city_state.name }}</th>
+            <th><a href="{% url 'update_city' %}?id={{ x.id }}"><img src="{%  static 'images/update.png' %}" width="50" height="50"> </a> </th>
+
+            <th>
+                <button type="button" class="btn note-btn-block" data-toggle="modal" data-target="#st{{ x.id }}">
+                        Delete
+                    </button>
+            <div class="modal fade" id="st{{ x.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure  want to delete {{ x.name }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="{% url 'delete_state' %}?id={{ x.id }}"><img src="{%  static 'images/delete.png' %}" width="50" height="50"></a>
+      </div>
+    </div>
+  </div>
+</div>
+                </th>
+            </tr>
+        {% endfor %}
+        </table>
+        {% else %}
+        City Not Available
+    {% endif %}
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'foodAdmin/welcome.html' %}
+
+{% block admin_welcome %}
+    {% load static %}
+
+    <form action="{% url 'save_cuisine' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+    <table align="center" border="2">
+         {% if message %}
+        <tr><th style="background: green;color: white" colspan="3">{{ message}}</th></tr>
+    {% endif %}
+
+    <tr>
+
+        <th colspan="3"   style="background: #1abc9c;color: white;font-size: 25px;
+        font-family: 'Agency FB';text-align: center"> Add Cuisine</th>
+    </tr>
+    <tr>
+        <th>
+         <input type="text" name="cuisine" id="cuisine"  placeholder="Cuisine Name" value="{{ cuisine }}">
+         <label>{% if cuisine %}{{ cuisine  }}{% endif %}</label>
+        </th>
+        <th>
+
+            <input type="file" name="photo"  value="{{ photo }}" id="photo">
+                 <label>{% if name %}{{ photo.name  }}{% endif %}</label>
+
+        </th>
+        <th><button type="submit" class="btn btn-dark">SAVE</button>
+            <input type="hidden" name="id" value="{{id}}">
+        </th>
+    </tr>
+    </form>
+    {% if error %}
+        <tr><th style="background: red;color: yellow" colspan="3">{{ error }}</th></tr>
+    {% endif %}
+
+    </table>
+
+    {% if cuisine_data %}
+        <table align="center" border="2" width="100%">
+        <tr><th style="background: #1abc9c;color: white;text-align: center" colspan="5"> All Cuisine Details</th></tr>
+        <tr><th>Cuisine Id</th>
+            <th>Cuisine Name</th>
+            <th>Cuisine Photo</th>
+            <th>Cuisine Update</th>
+            <th>Cuisine Delete</th>
+        </tr>
+        {% for x in cuisine_data %}
+            <tr>
+            <th>{{ x.id }}</th>
+            <th>{{ x.name }}</th>
+            <th><img src="{{ x.photo.url }}" width="90" height="90"></th>
+            <th><a href="{% url 'update_cuisine' %}?id={{ x.id }}"><img src="{%  static 'images/update.png' %}" width="50" height="50"> </a> </th>
+{#            <th><a href="{% url 'delete_state' %}?id={{ x.id }}"><img src="{%  static 'images/delete.png' %}" width="50" height="50"></a></th>#}
+            <th>
+                <button type="button" class="btn note-btn-block" data-toggle="modal" data-target="#st{{ x.id }}">
+                        Delete
+                    </button>
+            <div class="modal fade" id="st{{ x.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure  want to delete {{ x.name }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <a href="{% url 'delete_state' %}?id={{ x.id }}"><img src="{%  static 'images/delete.png' %}" width="50" height="50"></a>
+      </div>
+    </div>
+  </div>
+</div>
+                </th>
+            </tr>
+        {% endfor %}
+        </table>
+        {% else %}
+        Cuisine Not Available
+    {% endif %}
+
+
+
+
+
+
+
+
+
+{% endblock %}
