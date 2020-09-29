@@ -123,7 +123,7 @@
            alt="AdminLTE Logo"
 
            style="opacity: .8">
-      <span class="brand-text font-weight-dark">Welcome Admin</span>
+      <span class="brand-text font-weight-dark" style="font-size: 25px;font-family: 'Agency FB';color: black">Welcome Admin</span>
     </a>
 
     <!-- Sidebar -->
@@ -140,7 +140,7 @@
           <li class="nav-item has-treeview">
             <a href="{% url 'add_state' %}" class="nav-link">
               <img src="{% static 'images/sta.png' %}" width="50" height="50">
-              <p>
+              <p style="font-size: 25px;font-family: 'Agency FB'">
                 State
 
               </p>
@@ -150,8 +150,8 @@
 
             <li class="nav-item has-treeview">
             <a href="{% url 'add_city' %}" class="nav-link">
-              <img src="{% static 'images/city.png' %}" width="50" height="50">
-              <p>
+              <img src="{% static 'images/citi.png' %}" width="50" height="50">
+              <p style="font-size: 25px;font-family: 'Agency FB';color: black">
                City
 
               </p>
@@ -160,20 +160,16 @@
             <li class="nav-item has-treeview">
             <a href="{% url 'add_cuisine' %}" class="nav-link">
                <img src="{% static 'images/cuisine.png' %}" width="50" height="50">
-              <p>
+              <p style="font-size: 25px;font-family: 'Agency FB';color: black">
                 Cuisine
               </p>
             </a>
           </li>
 
-
-
-
-
           <li class="nav-item">
             <a href="{% url 'add_vendor' %}" class="nav-link">
                <img src="{% static 'images/ven.png' %}" width="50" height="50">
-              <p>
+              <p style="font-size: 25px;font-family: 'Agency FB';color: black">
                 Vendor
 
               </p>
@@ -182,7 +178,7 @@
           <li class="nav-item has-treeview menu-open">
             <a href="{% url 'add_report' %}" class="nav-link">
                <img src="{% static 'images/rep.png' %}" width="50" height="50">
-              <p>
+              <p style="font-size: 25px;font-family: 'Agency FB';color: black">
               Reports
               </p>
             </a>
@@ -190,10 +186,11 @@
           <li class="nav-item has-treeview">
             <a href="{% url 'logout' %}" class="nav-link">
                <img src="{% static 'images/lo.jpg' %}" width="50" height="50">
-              <p>
+              <p style="font-size: 25px;font-family: 'Agency FB';color: black">
                 Logout
               </p>
             </a>
+
 
 
 

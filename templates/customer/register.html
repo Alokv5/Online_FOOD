@@ -1,0 +1,77 @@
+{% extends 'common.html' %}
+{% block common %}
+    {% load static %}
+
+   <section class="jumbotron text-center">
+    {% include 'customer/Customer_menu.html' %}
+  </section>
+
+
+     <div class="container">
+    <div class="register-box">
+  <div class="register-logo">
+
+  </div>
+
+  <div class="card" style="alignment: center" align="center">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Register a new Member</p>
+
+      <form action="{% url 'customer_save' %}" method="post">{% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Full name" name="c1">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" placeholder="Contact" required name="c2">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-mobile"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Address" required name="c3">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-address-card"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+            <select  class="custom-select" id="inputGroupSelect01" required name="c4">
+            <option>Select City</option>
+                {% for x in city %}
+                    <option value="{{ x.id }}">{{ x.name }}</option>
+                {% endfor %}
+            </select>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password"  required name="c5">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+
+
+      <a href="../vendor/login.html" class="text-center">I already have a membership</a>
+    </div>
+  </div>
+
+
+    </div>
+     </div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'vendor/welcome.html' %}
+
+{% block vendor_welcome %}
+    {% load static %}
+
+    <table align="center" border="2" width="80%">
+    <form action="{% url 'vendor_save_food' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <tr><th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #0b2e13;text-align: center" colspan="5">
+        Food Operations</th></tr>
+    <tr><th colspan="5" style="font-family: 'Agency FB';font-size: 25px;color: white;background: #e6f7f7;text-align: center">Add Food Items</th></tr>
+    <tr><th style="padding: 10px"><input type="text" placeholder="Name" required name="f1"
+                   class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></th>
+        <th>Food Type
+            <select name="f2">
+                {% for x in food_type %}
+                    <option value="{{ x.id }}">{{ x.name }}</option>
+                {% endfor %}
+
+            </select>
+
+        </th>
+        <th style="padding: 10px"><input type="number" placeholder='Price' required name="f3"
+                   class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></th>
+
+        <th><input type="file" required name="f4"></th>
+        <th style="padding: 10px;text-align: center"><button type="submit" class="btn btn-outline-success">Save</button></th>
+    </tr>
+    </form>
+    <tr>
+        <th colspan="5">
+            <table align="center" border="2" width="100%">
+                <tr>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">ID NO</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">FOOD NAME</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">FOOD TYPE</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">PRICE</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">IMAGES</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">UPDATE</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">DELETE</th>
+                </tr>
+                {% for x in food %}
+                    <tr>
+                    <th>{{ x.id }}</th>
+                    <th>{{ x.name}}</th>
+                    <th>{{ x.food_type.name}}</th>
+                    <th>{{ x.price }}</th>
+                    <th><img src="{{ x.photo.url }}" width="100" height="100"> </th>
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </th>
+    </tr>
+    </table>
+{% endblock %}

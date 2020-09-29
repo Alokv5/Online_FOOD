@@ -20,8 +20,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/',include('foodAdmin.urls')),
-    path('customer/',include('customer.urls')),
-    path('vender/',include('vendor.urls')),
+
+    path('vendor/',include('vendor.urls')),
+    path('',include('customer.urls')),
 ]
 
 

@@ -1,0 +1,19 @@
+{% extends 'customer/welcome.html' %}
+
+{% block customer_welcome %}
+    {% load static %}
+
+    <table align="center" border="0">
+    <tr>
+        <th style="background: #721c24;color: white;font-size: 30px;text-align: center;padding: 25px">Welcome &nbsp;{{customer_details.name }}</th>
+    </tr>
+    <tr>
+        <th style="padding: 15px">
+{#            <img src="{% static 'images/cust.gif' %}" width="550" height="350">#}
+        </th>
+    </tr>
+
+    </table>
+
+
+{% endblock %}

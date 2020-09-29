@@ -1,0 +1,108 @@
+{% extends 'common.html' %}
+
+{% block common %}
+    {% load static %}
+      <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+     <body>
+    <header>
+   {% include 'customer/customer_header.html' %}
+</header>
+
+<main role="main">
+
+  <section class="jumbotron text-center">
+    {% include 'customer/Customer_menu.html' %}
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+        {% for x in food %}
+            <div class="col-md-4">
+          <div class="card" style="width: 18rem;">
+
+                <img src="{{ x.photo.url }}" class="card-img-top">
+            <div class="card-body">
+                <p>Name:{{ x.name }}</p>
+                <p>Price:{{ x.price }}</p>
+                <p>Sold By:{{ x.food_type.vender_id.stall_name }}</p>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <form action="{% url 'add_to_cart' %}" method="post">
+                        {% csrf_token %}
+
+                   <input type="hidden" name="item" value="{{ x.id }}" >
+
+                  <button type="submit" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
+                   </form>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+            {% if forloop.counter|divisibleby:3 %}
+                   </div>
+                  <div class="row">
+            {% endif %}
+        {% endfor %}
+    </div>
+
+  </div>
+  </div>
+
+<nav aria-label="Page navigation example" style="align-content: center">
+  <ul class="pagination">
+      {% if food.has_previous %}
+    <li class="page-item"><a class="page-link"  href="{% url 'main' %}?pageno={{ food.previous_page_number }}">Previous</a></li>
+      {% endif %}
+  {% for y in food.paginator.page_range %}
+      {% if food.number == y %}
+    <li class="page-item"><a class="page-link" href="{% url 'main' %}?pageno={{ y }}">
+        <h1 style="background: red;color:whitesmoke">{{ y }}</h1></a></li>
+      {% else %}
+          <li class="page-item">
+              <a class="page-link" href="{% url 'main' %}?pageno={{ y }}">{{ y }}</a></li>
+      {% endif %}
+   {% endfor %}
+
+  {% if food.has_next %}
+    <li class="page-item"><a class="page-link"  href="{% url 'main' %}?pageno={{ food.next_page_number }}">Next</a></li>
+  {% endif %}
+  </ul>
+</nav>
+
+</main>
+
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Back to top</a>
+    </p>
+    <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+    <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+  </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+{% endblock %}

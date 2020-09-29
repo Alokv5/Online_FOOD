@@ -1,0 +1,62 @@
+{% extends 'customer/welcome.html' %}
+
+{% block customer_welcome %}
+    {% load mycustom %}
+
+  <table align="center" border="2" width="800">
+  <tr><th>
+      <table align="center" border="2" width="800">
+   {% if cart_items %}
+       <tr style="background: #0f6674;color: white;font-family: 'Agency FB';font-size: 25px">
+       <th>Photo</th>
+       <th>Item Name</th>
+       <th>Price</th>
+       <th>Quantity</th>
+        <th>Total Price</th>
+       <th>Modify</th>
+       <th>Delete</th>
+
+       </tr>
+       {% for x in cart_items %}
+       <tr>
+       <th><img src="{{ x.food.photo.url}}" width="150" height="150"></th>
+       <th>{{ x.food.name }}</th>
+       <th>{{ x.food.price }}</th>
+       <th>{{ x.quantity }}</th>
+       <th>{% totalAmount x.quantity x.food.price  %}</th>
+        <th>YES</th>
+        <th>YES</th>
+       {% endfor %}
+       {% else %}
+        <tr>
+        <th>Cart is Empty</th>
+        </tr>
+   {% endif %}
+
+  </th>
+  </tr>
+  </table>
+   <form action="{% url 'customer_order' %}" method="post">
+               {% csrf_token %}
+   <th><table align="center" border="2">
+       <tr><th style="text-align: center;font-family: 'Agency FB';color:firebrick;font-size: 25px" colspan="3">Address</th></tr>
+       <tr><th colspan="2">
+           <textarea  required  name="address"  cols="25" rows="5">Address</textarea> </th></tr>
+              <tr><th style="text-align: center;font-family: 'Agency FB';color:firebrick;font-size: 25px" colspan="3">PAYMENT </th></tr>
+              <tr>
+             <th style="text-align: center;font-family: 'Agency FB';color:firebrick;font-size: 25px">TOTAL AMOUNT</th>
+            <th style="text-align: center;font-family: 'Agency FB';color:firebrick;font-size: 25px">{% grandTotal request%}</th></tr>
+            <tr>
+           <th colspan="2" style="text-align: center">
+
+               <input type="hidden" value="{% grandTotal request%}" name="total">
+               <button type="submit" class="btn-outline-warning">
+                   PROCEED TO PAY</button>
+           </form>
+           </th></tr>
+
+          </table>
+   </th>
+  </tr>
+  </table>
+{% endblock %}

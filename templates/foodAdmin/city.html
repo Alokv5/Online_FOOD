@@ -9,7 +9,7 @@
         <tr><th><input type="text" name="city" id="city"  placeholder="City Name" value="{{ city }}">
              <label>{% if name %}{{ name  }}{% endif %}</label></th>
 
-        <th><input type="file" name="photo"  value="{{ photo }}" id="photo">
+        <th><input type="file" name="photo"  value="{{ photo }}" id="photo" required>
              <label>{% if photo %}{{ photo.name }}{% else %}Choose Image{% endif %}</label>
         </th>
           <th>Select State :
@@ -24,7 +24,7 @@
                     </select></th>
         <th><button type="submit" class="btn btn-dark">Save</button></th></tr>
         <input type="hidden" name="id" value="{{ id }}">
-                <input type="hidden" name="city_state" value="{{ city_state }}">
+                <input type="hidden" name="city_state" value="{{ city_state }}" >
 
         </form>
 
@@ -34,8 +34,8 @@
     </table>
 
     {% if ctdata %}
-        <table align="center" border="2">
-        <tr><th style="background: #1abc9c;color: white;text-align: center"> All City Details</th></tr>
+        <table align="center" border="2" width="850">
+        <tr><th style="background: #1abc9c;color: white;text-align: center" colspan="6"> All City Details</th></tr>
         <tr><th>City Id</th>
             <th>City Name</th>
             <th>City Photo</th>
@@ -65,7 +65,7 @@
         </button>
       </div>
       <div class="modal-body">
-        Are you sure  want to delete {{ x.name }}
+       Are you  want to delete {{ x.name }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

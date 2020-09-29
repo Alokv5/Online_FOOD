@@ -1,0 +1,62 @@
+{% extends 'common.html' %}
+{% block common %}
+    {% load static %}
+
+   <section class="jumbotron text-center">
+    {% include 'customer/Customer_menu.html' %}
+  </section>
+
+
+<div class="container">
+    <div class="register-box">
+  <div class="register-logo">
+
+  </div>
+
+  <div class="card" style="alignment: center" align="center">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">OTP</p>
+
+      <form action="{% url 'customer_check_otp' %}" method="post">{% csrf_token %}
+          <div class="input-group mb-3">
+              <h3>Contact no.{{ contactno }}</h3>
+          </div>
+
+        <div class="input-group mb-3">
+          <input type="hidden"  value="{{ contactno }}" required name="cno">
+          <input type="password" class="form-control" placeholder="OTP"  required name="otp">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">SEND</button>
+          </div>
+
+          <a href="#" class="text-center">{{ message }}</a>
+
+      </form>
+
+    </div>
+  </div>
+
+
+    </div>
+     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

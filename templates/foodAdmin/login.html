@@ -28,7 +28,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Admin Sign in </p>
+      <p class="login-box-msg" style="font-size: 25px;font-family: 'Agency FB';color: black">Ａｄｍｉｎ Ｓｉｇｎ Ｉｎ</p>
 
       <form action="{% url 'admin_login_check' %}" method="post">
           {% csrf_token %}
@@ -64,9 +64,6 @@
           <!-- /.col -->
         </div>
       </form>
-
-
-
       <p class="mb-1">
         <a href="forgot-password.html">I forgot my password</a>
       </p>

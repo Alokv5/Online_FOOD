@@ -1,7 +1,114 @@
 {% extends 'foodAdmin/welcome.html' %}
 
 {% block admin_welcome %}
+    {% load static %}
 
-    <h1>vendor</h1>
+    <table align="center" border="2">
+    <tr><th colspan="11" style="background: #0f6674;color: white;font-family: 'Agency FB';font-size: 25px;text-align: center">
+        Vendors Details</th></tr>
+    <tr><th style="background: red">Pending</th></tr>
+        {% if Pending %}
+    <tr><th>
+        <table align="center" border="2">
+            <tr style="background: #721c24;color: white"><th>ID</th>
+            <th>Stall Name</th>
+            <th>Contact 1</th>
+            <th>Contact 2</th>
+            <th>Cuisine Type</th>
+            <th>Photo</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Approve</th>
+            <th>Cancel</th>
 
+            </tr>
+            {% for x in Pending %}
+                <tr><th>{{ x.id }}</th>
+                <th>{{ x.stall_name}}</th>
+                <th>{{ x.contact_1}}</th>
+                <th>{{ x.contact_2}}</th>
+                <th>{{ x.cuisine_type.type }}</th>
+                <th><img src="{{ x.photo.url }}" width="200" height="100"></th>
+                <th>{{ x.address }}</th>
+                <th>{{ x.vender_city.name }}</th>
+                <th>{{ x.vender_city.city_state.name }}</th>
+                <th><a  href="{% url 'admin_vendor_approve' %}?id={{ x.id }}"><img src="{% static 'images/stamp.png' %}"></a> </th>
+                <th><a  href="{% url 'admin_vender_cancel' %}?id={{ x.id }}"><img src="{% static 'images/cancel.png' %}"></a> </th>
+                </tr>
+
+
+            {% endfor %}
+        </table>
+            {% else %}
+          <tr><th style="background: white;color: #721c24">No Pending Vendors</th></tr>
+        {% endif %}
+    <tr><th colspan="11" bgcolor="green">Approved</th></tr>
+    {% if Approved %}
+    <tr><th>
+        <table align="center" border="2">
+            <tr style="background: #721c24;color: white"><th>ID</th>
+            <th>Stall Name</th>
+            <th>Contact 1</th>
+            <th>Contact 2</th>
+            <th>Cuisine Type</th>
+            <th>Photo</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Cancel</th>
+
+            </tr>
+            {% for x in Approved %}
+                <tr><th>{{ x.id }}</th>
+                <th>{{ x.stall_name}}</th>
+                <th>{{ x.contact_1}}</th>
+                <th>{{ x.contact_2}}</th>
+                <th>{{ x.cuisine_type.type }}</th>
+                <th><img src="{{ x.photo.url }}" width="200" height="50"></th>
+                <th>{{ x.address }}</th>
+                <th>{{ x.vender_city.name }}</th>
+                <th>{{ x.vender_city.city_state.name }}</th>
+
+                <th><a  href="{% url 'admin_vender_cancel' %}?id={{ x.id }}"><img src="{% static 'images/cancel.png' %}"></a> </th>
+                </tr>
+
+
+            {% endfor %}
+        </table>
+            {% else %}
+          <tr><th style="background: white;color: #167205">No Pending Vendors</th></tr>
+        {% endif %}
+    {% if Cancel %}
+    <tr><th>Canceled</th></tr>
+        <tr><th>
+        <table align="center" border="2">
+            <tr style="background: #ff4708;color: white"><th>ID</th>
+            <th>Stall Name</th>
+            <th>Contact 1</th>
+            <th>Contact 2</th>
+            <th>Cuisine Type</th>
+            <th>Photo</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            </tr>
+            {% for x in Cancel %}
+                <tr><th>{{ x.id }}</th>
+                <th>{{ x.stall_name}}</th>
+                <th>{{ x.contact_1}}</th>
+                <th>{{ x.contact_2}}</th>
+                <th>{{ x.cuisine_type.type }}</th>
+                <th><img src="{{ x.photo.url }}" width="200" height="80"></th>
+                <th>{{ x.address }}</th>
+                <th>{{ x.vender_city.name }}</th>
+                <th>{{ x.vender_city.city_state.name }}</th>
+                </tr>
+            {% endfor %}
+    {% endif %}
+
+    </table>
+        </th>
+        </tr>
+    </table>
 {% endblock %}

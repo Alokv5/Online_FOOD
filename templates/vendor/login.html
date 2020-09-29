@@ -1,0 +1,95 @@
+{% extends 'common.html' %}
+
+    {% block common %}
+        {% load static %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page" bgcolor="#add8e6">
+
+  <!-- /.login-logo -->
+    <div class="card-body login-card-body" ></div>  <div class="card" style="background: lightblue">
+
+      <p class="login-box-msg">Vendor Sign in </p>
+
+      <form action="{% url 'vendor_login_check' %}" method="post">
+          {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" placeholder="Mobile  no" required name="vendor_username">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-mobile"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" required name="vendor_password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+
+
+          <!-- /.col -->
+        </div>
+      </form>
+      <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p>
+        <p class="mb-1">
+        <a href="{% url 'vendor_register' %}"><img src="{% static 'images/regnow.png' %}" width="150" height="50"></a>
+            </p>
+
+
+
+        {% if error %}
+            <p class="mb-0" style="background: red;color: white">
+        {{ error }}
+      </p>
+        {% endif %}
+
+     {% for  x in messages %}
+         <p class="mb-0" style="background: green;color: white;font-family: 'Agency FB';font-size: 25px">
+        {{ x }}
+      </p>
+     {% endfor %}
+  </div>
+</div>
+
+
+</body>
+{% endblock %}

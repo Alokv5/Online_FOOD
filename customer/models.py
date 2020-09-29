@@ -13,12 +13,17 @@ class CustomerRegistrationModel(models.Model):
     otp=models.IntegerField()
 
 
+class CartItemModel(models.Model):
+    id=models.AutoField(primary_key=True)
+    customer=models.ForeignKey(CustomerRegistrationModel,on_delete=models.CASCADE,default=False)
+    food=models.ForeignKey(FoodItemsModel,on_delete=models.CASCADE,default=False)
+    quantity=models.IntegerField(default=False)
+    status=models.CharField(max_length=50,default="Active")
+
 
 class OrderModel(models.Model):
     id=models.AutoField(primary_key=True)
-    items=models.ManyToManyField(FoodItemsModel)
-    quantity=models.IntegerField()
+    c_id=models.ForeignKey(CustomerRegistrationModel,on_delete=models.CASCADE,default=False)
     total=models.FloatField()
-    status=models.CharField(max_length=20)
     date=models.DateField(auto_now_add=True)
     address=models.TextField()

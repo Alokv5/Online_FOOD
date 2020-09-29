@@ -1,0 +1,51 @@
+{% extends 'common.html' %}
+
+{% block common %}
+    {% load static %}
+
+    {% if Cuisine and City %}
+        <form action="{% url 'save_vendor' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center" border="2" style="padding: 5px;text-align: center" width="550">
+        <tr><th style="background: #1abc9c;color: white;font-family: 'Agency FB';font-size: 25px"> Vendor Registration Page</th></tr>
+        <tr><th><input type="text" placeholder="Stall Name" required name="v1"></th></tr>
+        <tr><th><input type="number" placeholder="Mobile No." required name="v2"></th></tr>
+        <tr><th><input type="number" placeholder="Contact No" required name="v3"></th></tr>
+        <tr>
+           <th> Cuisine Type<select name="v4">
+                <option>Select</option>
+               {% for x in Cuisine %}
+                <option value="{{ x.id }}">{{ x.type }}</option>
+               {% endfor %}
+           </select>
+        </th></tr>
+        <tr><th><input type="file"  required name="v5"></th></tr>
+            <tr><th><textarea placeholder="Address" required name="v6"></textarea></th></tr>
+            <tr>
+           <th> <select name="v7">
+                <option>Select</option>
+               {% for x in City %}
+                <option value="{{ x.id   }}">{{ x.name }}</option>
+               {% endfor %}
+           </select>
+           </th>
+            </tr>
+        <tr><th><input type="password" placeholder="Password" required name="v8"></th></tr>
+        <tr>
+            <th>
+                <a href="{% url 'vendor_login_check' %}">
+                    <button type="submit" class="btn btn-outline-success">Register</button></a>
+            </th>
+        </tr>
+
+        <tr><th>
+            <a href="{% url 'vendor_main' %}">
+           <button type="submit" class="btn btn-outline-primary">If Already Registerd Login  Here</button>
+                </a>
+       </th></tr>
+        </table>
+
+        </form>
+    {% endif %}
+
+{% endblock %}

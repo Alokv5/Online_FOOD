@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'customer.apps.CustomerConfig',
     'foodAdmin.apps.FoodadminConfig',
-    'vendor.apps.VendorConfig'
+    'vendor.apps.VendorConfig',
+    # 'customer.templatetag.mycustom'
 
 ]
 
 MIDDLEWARE = [
+    'customer.middleware.LocationMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,6 +70,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+'libraries':{
+            'mycustom':'customer.templatetag.mycustom',
+}
         },
     },
 ]

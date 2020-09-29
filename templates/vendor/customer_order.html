@@ -1,0 +1,35 @@
+{% extends 'vendor/welcome.html' %}
+
+{% block vendor_welcome %}
+    {% load static %}
+
+    <table align="center" border="2" width="600">
+    <tr>
+
+        <th>Customer-ID</th>
+        <th>Food Name</th>
+        <th>Quantity</th>
+        <th>Accept/Cancel</th>
+    </tr>
+
+            {% for x in data %}
+
+
+        <tr>
+        <th>{{ x.customer.id}}</th>
+       <th>{{ x.food.name }}</th>
+       <th>{{ x.quantity }}</th>
+        <th>
+            <button type="submit" class="btn-outline-primary">Accept</button>
+            <button type="submit" class="btn-outline-danger">Cancel</button>
+        </th>
+
+       </tr>
+
+
+            {% endfor %}
+
+    </table>
+
+
+{% endblock %}

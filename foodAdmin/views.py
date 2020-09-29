@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from foodAdmin.models import AdminLoginModel,StateModel,CusineModel,CityModel
+from vendor.models import VendorRegistrationModel
 from django.contrib import messages
+from foodAdmin.otpsending import sendASMS
 
 def ShowIndex(request):
     return render(request,"foodAdmin/login.html")
@@ -32,13 +34,13 @@ def Add_Cuisine(request):
     return render(request, "foodAdmin/cuisine.html",{"cuisine_data":CusineModel.objects.all()})
 
 def Add_Vendor(request):
-    return render(request,"foodAdmin/vendor.html")
+    return render(request,"foodAdmin/vendor.html",{"Pending":VendorRegistrationModel.objects.filter(status='Pending'),
+                                                   "Approved":VendorRegistrationModel.objects.filter(status='Approved'),
+                                                   "Cancel":VendorRegistrationModel.objects.filter(status="Cancel")})
 
 def OpenReport(request):
     return render(request,"foodAdmin/report.html")
 
-def Logout(request):
-    return render(request ,"foodAdmin/login.html")
 
 def save_state(request):
     if request.POST.get('id'):
@@ -150,51 +152,18 @@ def delete_cuisine(request):
     return redirect('cuisine')
 
 
+def admin_vendor_approve(request):
+    res=VendorRegistrationModel.objects.get(id=request.GET.get("id"))
+    sname=res.stall_name
+    cno=res.contact_1
+    res.status='Approved'
+    res.save()
+    sendASMS(str(cno),"Hello"+sname+"\n Your Registration is Approve Successfully")
+    return Add_Vendor(request)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def admin_vender_cancel(request):
+    res=VendorRegistrationModel.objects.get(id=request.GET.get("id"))
+    res.status="Cancel"
+    res.save()
+    return Add_Vendor(request)

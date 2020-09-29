@@ -1,0 +1,84 @@
+{% extends 'common.html' %}
+
+{% block common %}
+    {% load static %}
+      <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+     <body>
+    <header>
+   {% include 'customer/customer_header.html' %}
+</header>
+
+<main role="main">
+
+  <section class="jumbotron text-center">
+    {% include 'customer/Customer_menu.html' %}
+  </section>
+
+  <div class="album py-5 bg-light">
+      <form action="{% url 'customer_login_check' %}" method="post">
+          {% csrf_token %}
+      <table align="center" border="0">
+          <tr><th style="width: 350px;font-family: 'Agency FB';font-size: 30px;text-align: center"> Customer Login Page</th></tr>
+          <tr><th>
+              <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Contact No.</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required name="c1">
+                    </div></th></tr>
+          <tr><th>
+                    <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                    </div>
+                    <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required name="c2">
+                    </div> </th></tr>
+          <tr>
+               <th style="text-align:center;">
+                   <button type="submit" class="btn btn-primary">Login</button>
+               </th>
+           </tr>
+          {% if error %}
+          <tr>
+              <th style="background: red;color: whitesmoke">{{ error }}</th>
+          </tr>
+            {% endif %}
+
+
+
+      </table>
+          </form>
+
+  </div>
+
+</main>
+
+<footer class="text-muted">
+  <div class="container">
+    <p class="float-right">
+      <a href="#">Back to top</a>
+    </p>
+
+    <p>New to Bootstrap? <a href="https://getbootstrap.com/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
+  </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+{% endblock %}

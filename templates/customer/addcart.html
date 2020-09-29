@@ -1,0 +1,38 @@
+{% extends 'customer/welcome.html' %}
+
+{% block customer_welcome %}
+    {% load static %}
+
+
+       <table align="center" border="2">
+       <tr><th><img src="{{ food.photo.url }}" width="200" height="200"> </th></tr>
+       <tr><th>Name:{{ food.name }}</th></tr>
+       <tr><th>Price:{{ food.price }}</th></tr>
+       <tr><th>Type:{{ food.food_type.name  }}</th></tr>
+       <tr><th style="text-align: center">
+           Quantity:
+           <form action="{% url 'customer_quantity' %}" method="post">{% csrf_token %}
+            <input type="hidden" value="{{ food.price }}" name="price">
+            <input type="hidden" value="{{ food.id  }}" name="item">
+           <button type="submit" class="btn btn-outline-primary" value="+" name="b1">+</button>
+           <span>{{ count }}</span>
+       <button type="submit" class="btn btn-outline-danger" value="-" name="b1">-</button></form></th></tr>
+
+       <tr><th  style="text-align: center"> Total:{{ total }}</th></tr>
+             {% if total != 0.0 %}
+       <tr><th style="text-align: center">
+           <form action="{% url 'customer_save_to_cart' %}" method="post">
+               {% csrf_token %}
+           <input type="hidden" value="{{ food.id  }}" name="item_id">
+           <input type="hidden" value="{{ food.id  }}" name="count">
+           <button type="submit" class="btn btn-outline-primary">Add To Cart</button>
+          </form>
+       </th>
+       </tr>
+         {% endif %}
+
+       </table>
+
+
+
+{% endblock %}

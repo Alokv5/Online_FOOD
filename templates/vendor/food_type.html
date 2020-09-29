@@ -1,0 +1,66 @@
+{% extends 'vendor/welcome.html' %}
+
+{% block vendor_welcome %}
+    {% load static %}
+
+    <table align="center" border="2" width="80%">
+    <form action="{% url 'save_food_type' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <tr><th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #0b2e13;text-align: center" colspan="3">
+        Food Type Operations</th></tr>
+    <tr><th colspan="3" style="font-family: 'Agency FB';font-size: 25px;color: white;background: #a7f7f7;text-align: center">Add Food Type</th></tr>
+    <tr><th style="padding: 10px"><input type="text" placeholder="Food Type" required name="f1"
+                   class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></th>
+        <th style="padding: 10px"><input type="text" placeholder="Status" required name="f2"
+                   class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></th>
+        <th style="padding: 10px;text-align: center"><button type="submit" class="btn btn-outline-success">Save</button></th>
+    </tr>
+    </form>
+    <tr>
+        <th colspan="3">
+            <table align="center" border="2" width="80%">
+                <tr>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">ID NO</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">FOOD TYPE</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">STATUS</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">UPDATE</th>
+                    <th style="font-family: 'Agency FB';font-size: 25px;color: white;background: #f4f58a;text-align: center">DELETE</th>
+                </tr>
+                {% for x in food_type %}
+                    <tr>
+                    <th>{{ x.id }}</th>
+                    <th>{{ x.name }}</th>
+                    <th>{{ x.status }}</th>
+                    <th><a href="{% url 'update_food_type' %}?=id{{ x.id }}">
+                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                    </a></th>
+                    <TH><a href="{% url 'delete_food_type' %}?=id{{ x.id }}">
+                        <button type="submit" class="btn btn-danger">DELETE</button></a></TH>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+        </th>
+    </tr>
+
+    <tr>
+        {% if upfoodtype %}
+        <th>
+            <form action="{% url 'updatefoodId' %}?id={{ upfoodtype.id }}" method="post" enctype="multipart/form-data">
+            <table align="center" border="2">
+                <tr>
+                    <th></th>
+                </tr>
+                <tr>
+                <th><input type="text" value="{{ upfoodtype.name }}" name="f1"></th>
+                <th><input type="text" value="{{  upfoodtype.status}}" name="f2"></th>
+                <th><button type="submit">UPDATE</button> </th>
+                </tr>
+            </table>
+            </form>
+        </th>
+        {% endif %}
+    </tr>
+    </table>
+{% endblock %}

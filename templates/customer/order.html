@@ -1,0 +1,54 @@
+{% extends 'customer/welcome.html' %}
+
+{% block customer_welcome %}
+
+    {% load mycustom %}
+
+  <table align="center" border="2" width="800">
+  <tr><th>
+      <table align="center" border="2" width="800">
+   {% if cart_items %}
+       <tr style="background: #0f6674;color: white;font-family: 'Agency FB';font-size: 25px">
+       <th>Photo</th>
+       <th>Item Name</th>
+       <th>Price</th>
+       <th>Quantity</th>
+        <th>Total Price</th>
+       <th>Status</th>
+
+       </tr>
+       {% for x in cart_items %}
+       <tr>
+       <th><img src="{{ x.food.photo.url}}" width="150" height="150"></th>
+       <th>{{ x.food.name }}</th>
+       <th>{{ x.food.price }}</th>
+       <th>{{ x.quantity }}</th>
+       <th>{% totalAmount x.quantity x.food.price  %}</th>
+        <th> {% if x.status == 'Order' %}
+            Order Not Yet Aprroved
+             {% endif %}
+        </th>
+
+       {% endfor %}
+       {% else %}
+        <tr>
+        <th>Please Place Some Orders</th>
+        </tr>
+   {% endif %}
+
+  </th>
+  </tr>
+  </table>
+
+   <th><table align="center" border="2" width="200">
+             <tr>
+             <th style="text-align: center;font-family: 'Agency FB';color:firebrick;font-size: 25px" colspan="2">TOTAL AMOUNT</th></tr>
+                 <tr>
+            <th style="text-align: center;font-family: 'Agency FB';color:firebrick;font-size: 25px">{% grandTotal request%}</th></tr>
+
+
+          </table>
+   </th>
+  </tr>
+  </table>
+{% endblock %}
